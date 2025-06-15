@@ -1,15 +1,15 @@
 # air-bolt
 This project aims to simulate the ideal pipeline and data transformation + analytical model creation for the Air Boltic service
 
-# Data sources
+# NOTE:
 
 1. The entire project is built assuming only availability for the provided data sources
-    customers
-    customer_groups
-    trips
-    airplanes
-    airplane_models
-    orders
+    - customers
+    - customer_groups
+    - trips
+    - airplanes
+    - airplane_models
+    - orders
 
 2. The YAML file in the sources folder specifies all of the previously mentioned sources
     *IMPORTANT* 
