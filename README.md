@@ -1,5 +1,8 @@
 # air-bolt
-This project aims to simulate the ideal pipeline and data transformation + analytical model creation for the Air Boltic service
+This project aims to simulate the ideal pipeline and data transformation + analytical model creation for the Air Boltic service.
+This project contains files for sources, staging, intermediate and mart models. Alongside an air_boltic.md file with some field documentation.
+
+Even though models were entirely built from scratch with no aid, AI was used to help me translate some functions from Snowflake SQL to Databricks SQL syntaxis. 
 
 # NOTE:
 
