@@ -1,0 +1,131 @@
+version: 2
+
+sources:
+  - name: s3_bolt_data
+    database: test
+    schema: src
+    tables:
+      - name: customers
+        description: Customer information including personal details and group associations
+        columns:
+          - name: customer_id
+            description: '{{ doc("customer_id") }}' # defined in the air_boltic.md file in the docs folder
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: '{{ doc("customer_name") }}' # defined in the air_boltic.md file in the docs folder
+          - name: customer_group_id
+            description: Foreign key linking to customer groups table
+          - name: email
+            description: Email address of the customer
+          - name: phone_number
+            description: Phone number of the customer
+
+      - name: customer_groups
+        description: Customer group classifications and organizational details
+        columns:
+          - name: customer_group_id
+            description: Unique identifier for each customer group
+            tests:
+              - unique
+              - not_null
+          - name: type
+            description: Type or category of the customer group
+          - name: name
+            description: Name of the customer group
+          - name: registry_number
+            description: identification number for the group
+
+      - name: airplanes
+        description: Airplanes used in the platform by operators
+        columns:
+          - name: airplane_id
+            description: Unique identifier for each airplane in the fleet
+            tests:
+              - unique
+              - not_null
+          - name: airplane_model
+            description: Model of the airplane
+          - name: manufacturer
+            description: Airplane manufacturer name
+
+      - name: airplane_models
+        description: Detailed specifications of each airplane
+        columns:
+          - name: manufacturer
+            description: airplane manufacturer name
+            tests:
+              - not_null
+          - name: airplane_model
+            description: Model of the airplane
+            tests:
+              - not_null
+          - name: max_seats
+            description: Maximum passenger capacity
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 1
+          - name: max_weight
+            description: Maximum weight the airplane can reach in kilograms
+          - name: max_distance
+            description: Maximum flight range in kilometers
+          - name: engine_type
+            description: Type of airplane engine
+
+      - name: trips
+        description: Flight trip information
+        columns:
+          - name: trip_id
+            description: Unique identifier for each flight trip
+            tests:
+              - unique
+              - not_null
+          - name: origin_city
+            description: Departure city for the flight
+            tests:
+              - not_null
+          - name: destination_city
+            description: Arrival city for the flight
+            tests:
+              - not_null
+          - name: airplane_id
+            description: Foreign key linking to the assigned airplane
+            tests:
+              - not_null
+          - name: start_timestamp
+            description: Scheduled departure date and time
+            tests:
+              - not_null
+          - name: end_timestamp
+            description: Scheduled arrival date and time
+            tests:
+              - not_null
+
+      - name: orders
+        description: Customer booking orders for flights
+        columns:
+          - name: order_id
+            description: Unique identifier for each booking order
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: Foreign key linking to the customer who made the booking
+            tests:
+              - not_null
+          - name: trip_id
+            description: Foreign key linking to the booked flight trip
+            tests:
+              - not_null
+          - name: price
+            description: Total price paid for the booking
+          - name: seat_number_assigned
+            description: Assigned seat number
+          - name: status
+            description: status of the order
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['Booked', 'Finished', 'Cancelled']
