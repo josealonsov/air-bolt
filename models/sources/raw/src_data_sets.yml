@@ -105,6 +105,9 @@ sources:
 
       - name: orders
         description: Customer booking orders for flights
+        tests:
+          - no_negative_values:
+              column: price
         columns:
           - name: order_id
             description: Unique identifier for each booking order

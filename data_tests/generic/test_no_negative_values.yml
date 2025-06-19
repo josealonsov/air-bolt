@@ -1,0 +1,5 @@
+version: 2
+
+macros:
+  - name: test_no_negative_values
+    description: This custom macro test if the column has a negative value
